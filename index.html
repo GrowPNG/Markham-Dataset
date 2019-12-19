@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='utf-8' />
+  <title>Grow Asia</title>
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.css' rel='stylesheet' />
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.6.2/css/bootstrap-slider.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/fontawesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.css">
+  <link rel="stylesheet" href="styles.css">
+
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.js'></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.6.2/bootstrap-slider.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.5/jquery.csv.min.js"></script>
+
+</head>
+
+<body>
+
+  <div class="modal fade" id="welcomeModal" tabindex="-1" role="dialog" aria-labelledby="welcomeModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Welcome to the Grow Asia Markham Agriculture Dataset</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          This dataset is developed in collaboration with Grow Asia and allows businesses to determine which area of the valley are best suited to a particular agricultural projects. Users can specify climate, terrain, soil and other variables at 90m resolution.
+          The goal of this dataset is to:
+          <ul>
+            <li>allow business leaders to make better decisions around crop selection and planning investments in the valley</li>
+            <li>inspire new entrants to invest in the valley</li>
+            <li>provide the data required to drive policy makers, business leaders, farm groups and civil society to work together on sectoral development</li>
+          </ul>
+
+          Have a question on this dataset or want to get involved? Contact <a href="mailto:ivan@growasia.org">ivan@growasia.org</a>.
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="elevationInfoTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            <div class="elevation">
+              Elevation (ALOS DSM)
+            </div>
+            <div class="slope">
+              Slope (ALOS DSM)
+            </div>
+            <div class="water">
+              Water Bodies (JRC Global Surface Water)
+            </div>
+            <div class="temperature">
+              Temperature (MOD11A1, V6)
+            </div>
+
+            <div class="rainfall">
+              Historical rainfall (CHIRPS)
+            </div>
+            <div class="soil">
+              Soil moisture (GLDAS)
+            </div>
+            <div class="humidity">
+              Humidity (GLDAS)
+            </div>
+            <div class="solar">
+              Radiation (Solargis)
+            </div>
+            <div class="flood">
+              Enveritas custom inundation risk
+            </div>
+            <div class="house">
+              Enveritas custom house
+            </div>
+            <div class="roads">
+              Enveritas custom roads
+            </div>
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="elevation">
+            <b>Dataset</b>
+            <ul>
+              <li>
+                Units: meters
+              </li>
+              <li>
+                Resolution: 30m downsampled to 90m
+              </li>
+            </ul>
+
+            <b>Introduction</b>
+            <ul>
+              <li>
+                The two most commonly used global elevation data sources are SRTM (provided by NASA) and ALOS DSM (provided by JAXA). ALOS DSM is generally better in cloud-free regions and areas where there is no dense forest coverage.
+              </li>
+              <li>
+                ALOS DSM is a digital surface model (DSM) which means it measures height of the earth’s surface including features such as buildings, trees, etc whereas SRTM is a digital elevation model (DEM) which means it measures just height of the earth’s surface.
+              </li>
+              <li>
+                ALOS DSM is built from AW3D (5m resolution, NTT DATA and Remote Sensing Technology Center of Japan), the world’s most precise global 3D map. It is developed using stereoscopy, a method of using imagery taken from different angles to produce a 3D model.
+                The images are collected by ALOS satellite which measure elevation with PRISM. SRTM lacked global coverage (~80% coverage) but void-fills using other elevation data and interpolation.
+              </li>
+            </ul>
+
+            <b>Evaluation</b>
+            <ul>
+              <li>
+                <a href="https://www.int-arch-photogramm-remote-sens-spatial-inf-sci.net/XLI-B4/157/2016/isprs-archives-XLI-B4-157-2016.pdf">Santillana and Makinano-Santilla‘s</a> paper compared AW3D30 with SRTM at 5,121 ground-based check-points in Japan
+                and around the world. AW3D30 had a lower root mean squared elevation error (4.40m vs 7.50m) and a lower standard deviation (4.38m vs 7.43m). <a href="https://www.int-arch-photogramm-remote-sens-spatial-inf-sci.net/XLI-B4/149/2016/isprs-archives-XLI-B4-149-2016.pdf">Another study</a>                in the Philippines also came to similar conclusions (AW3D30 RSME 5.68m, SRTM RSME 8.28m, AW3D30 standard deviation 3.66m, SRTM standard deviation 4.57m). They also found that AW3D30 had the lowest mean and RMSE errors across five different
+                land covers - brushland, built-up, cultivated, dense vegetation and grassland.
+              </li>
+            </ul>
+
+            <b>Summary statistics</b>
+            <ul>
+              <li>Average: 1095.37 / Standard deviation: 788.27 / Min: -34.00 / 25 percentile: 396.00 / 50 percentile: 1057.00 / 75 percentile: 1643.00 / Max: 4091.00
+              </li>
+            </ul>
+
+            <b>Historical availability</b>
+            <ul>
+              <li>Data recorded in 2006 to 2011
+              </li>
+            </ul>
+
+          </div>
+
+          <div class="slope">
+
+            <b>Dataset</b>
+            <ul>
+              <li>
+                Units: degrees
+              </li>
+              <li>
+                Resolution: 30m downsampled to 90m
+              </li>
+            </ul>
+
+            <b>Introduction</b>
+            <ul>
+              <li>
+                Slope (30m) is calculated from the ALOS elevation data using the <a href="https://www.usna.edu/Users/oceano/pguth/md_help/html/demb1f3n.htm">four neighbor method</a> (calculates 2 vectors along x and y axis neighbors to form a plane, calculates
+                the normal to the plane at the point, and then takes the degree difference between the normal from 90 degrees).
+              </li>
+            </ul>
+
+            <b>Summary statistics</b>
+            <ul>
+              <li>Average: 18.84 / Standard deviation: 12.16 / Min: 0.00 / 25 percentile: 8.95 / 50 percentile: 19.06 / 75 percentile: 27.78 / Max: 83.69
+              </li>
+            </ul>
+          </div>
+
+          <div class="water">
+
+            <b>Dataset</b>
+            <ul>
+              <li>
+                Data: 1 if have water, 0 if not water
+              </li>
+              <li>
+                Resolution: 30m downsampled to 90m
+              </li>
+            </ul>
+
+            <b>Introduction</b>
+            <ul>
+              <li>
+                JRC Global Surface Water is compiled by the European Commission's Joint Research Centre and is the output of <a href="https://www.nature.com/articles/nature20584">"High-resolution mapping of global surface water and it's long term
+                  changes'”</a>, a Nature paper which uses Landsat classified tiles (64,254 samples) to build a model to detect water bodies.
+              </li>
+
+            </ul>
+
+            <b>Evaluation</b>
+            <ul>
+              <li>
+                The same Nature paper collected 40,124 control points around the world across 32 years and found the system had
+                <1% of false water detections and missed <5% of water surfaces. </li>
+            </ul> <b>Summary statistics</b>
+            </ul>
+
+            <b>Summary statistics</b>
+            <ul>
+              <li>4% of land mass is water body
+              </li>
+            </ul>
+
+            <b>Historical availability</b>
+            <ul>
+              <li>We use 2017 to 2019 data.
+              </li>
+            </ul>
+          </div>
+
+          <div class="temperature">
+
+            <b>Dataset</b>
+            <ul>
+              <li>
+                Units: Celsius
+              </li>
+              <li>
+                Resolution: 1km, applied Gaussian smoothing to interpolate values and get 90m resolution
+              </li>
+            </ul>
+
+            <b>Introduction</b>
+            <ul>
+              <li>
+                MOD11A1 is provided by NASA and is temperature data derived from MOD11_L2, retrieved using the split-window algorithm and under clear-sky conditions.
+              </li>
+
+            </ul>
+
+            <b>Evaluation</b>
+            <ul>
+              <li>
+                MOD11A1 V5 has previously been shown to be accurate within ± 2K across 42 sites, which represent a wide range of land surface temperature across seasons and years, except in six bare soil sites. MOD11A1 naturally performs poorly in bare arid areas since
+                bands 31 and 32 (algorithm inputs) are more variable in these types of regions. <a href="https://www.sciencedirect.com/science/article/abs/pii/S003442571300285X">“New refinements and validation of the
+                  collection-6 MODIS land-surface temperature/emissivity product”</a> tested the v6 update on five bare soil sites in north Africa, with validation errors within ± 0.6K in 10 of 12 validatation data sets (0.8K and 1.9K for the other two).
+                Standard deviation is similarly low at
+                <0.7K for all 12 data sets. Similarly, “Evaluation of Collection-6 MODIS Land Surface Temperature Product Using Multi-Year Ground Measurements in an Arid Area of Northwest China” evaluates v5 and v6 data on various sand desert land types and concludes
+                  that the RMSE of V6 is smaller compared to the RMSE of V5. </li>
+            </ul> <b>Summary statistics</b>
+            <ul>
+              <li>Temperature monthly average (these are statistics of the average monthly temperature for each pixel) Average: 23.78 / 50 percentile: 24.00
+
+              </li>
+            </ul>
+
+            <b>Historical availability</b>
+            <ul>
+              <li>2000 onwards, we use 2016 2017 and 2018 data.
+              </li>
+            </ul>
+          </div>
+
+          <div class="rainfall">
+            <b>Dataset</b>
+            <ul>
+              <li>
+                Units: millimeters
+              </li>
+              <li>
+                Resolution: 5km, applied Gaussian smoothing to interpolate values and get 90m resolution
+              </li>
+            </ul>
+
+
+            <b>Introduction</b>
+            <ul>
+              <li>
+                Precipitation datasets are largely divided into gauge-based (accurate at single points), satellite-related (provides broader coverage using microwave to conduct radiative transfer techniques and infrared to measure temperature of cloud tops, but inaccurate
+                in areas with complex topologies), methods merging gauge and satellite-related methods, and reanalysis systems (methods to synthesize irregular observations). Reanalysis systems are generally inconclusive - in a <a href="https://agupubs.onlinelibrary.wiley.com/doi/full/10.1002/2017RG000574">global study</a>                of 30 precipitation datasets, reanalysis systems have been shown to have larger variance, whereas in another reanalysis systems performed better than satellite systems. Generally, precipitation datasets perform poorly in arid climates
+                and satellite systems are challenging in areas with complex topography.
+              </li>
+              <li>CHIRPS (Climate Hazards Group, UCSB) is a 35+ year quasi-global rainfall dataset. It uses a satellite-based, gauge corrected method by incorporating 0.05° resolution satellite imagery with ground station data.
+              </li>
+            </ul>
+
+            <b>Evaluation</b>
+            <ul>
+              <li>
+                In an <a href="https://www.sciencedirect.com/science/article/pii/S0048969716319143">evaluation</a> of 8 datasets in Adige Basin, an area of complex topography, against 101 rain gauges and across multiple temporal (daily, monthly and annual)
+                and spatial scales (grid and watershed), CHIRPS performed the best overall (bias
+                < 0.05). All products do not perform well in low precipitation events (winter months). </li>
+                  <li>
+                    In a <a href="https://www.hydrol-earth-syst-sci.net/23/595/2019/">2018 study</a> of 12 satellite-based systems compared against 72 gauges near Lake Titicaca, an area of contrasting emissivity, temperature and orography (topography),
+                    MSWEP v.2.1 and CHIRPS v.2 performed best in space-time accuracy and consistency. The authors conclude that “some SPPs are relatively stable at regional scale (CHIRPS v.2, MSWEP v.2.1) and could thus be used to study regional precipitation
+                    patterns with a relatively high degree of confidence”, with MSWEP v.2.1 being the best. Across all three assessment indicators (gauge precipitation estimate, streamflow and snow cover duration), systems with gauge data outperformed
+                    satellite-only systems.
+                  </li>
+                  <li>In a <a href="https://www.mdpi.com/2072-4292/11/5/555/htm">study</a> of three satellite-based systems over a hot desert climate in Egypt, CHIRPS was best at estimating rainfall amounts, IMERG was better at detecting the occurrence of
+                    rainfall than CHIRPS.
+                  </li>
+                  <li>
+                    In a <a href="https://www.hydrol-earth-syst-sci.net/21/6201/2017/hess-21-6201-2017.pdf">2017 global study</a> of 22 precipitation datasets on 76,086 gauges, MSWEP V2.0 performs best across the climate indicators. For tropical regions,
+                    CHIRPS V2.0 is the second best choice “if a daily temporal resolution suffices, and if the peak magnitude underestimation and spurious drizzle are less critical”.
+                  </li>
+                  <li>
+                    In general, MSWEP and CHIRPS is on par, but MSWEP requires more manual integration and permission from the Princeton team for scientific purposes.
+
+                  </li>
+            </ul>
+
+            <b>Summary statistics</b>
+            <ul>
+              <li>Rainfall quarterly max (these are statistics of the quarter with the most rainfall for each pixel) Average: 788.01 / 50 percentile: 770.69
+              </li>
+              <li>
+                Rainfall annual average (these are statistics of the average annual rainfall for each pixel) Average: 2098.40 / 50 percentile: 1968.14
+              </li>
+            </ul>
+
+            <b>Historical availability</b>
+            <ul>
+              <li>1981 to present, we use 2016 2017 and 2018 data.
+              </li>
+            </ul>
+          </div>
+
+          <div class="soil">
+            <b>Dataset</b>
+            <ul>
+              <li>
+                Units: millimeters
+              </li>
+              <li>
+                Resolution: 25km, applied Gaussian smoothing to interpolate values and get 90m resolution
+              </li>
+            </ul>
+
+
+            <b>Introduction</b>
+            <ul>
+              <li>
+                Both GLDAS (NASA, Noah land surface model) and SMAP (NASA) are global high resolution datasets providing surface and subsurface soil moisture data. GLDAS is a satellite and ground observations based system. Specifically it measures the backscattering
+                of microwaves which interact with soil, wetter soil results in more backscattering. SMAP combines L-bands with C- and X-band microwaves.
+              </li>
+
+            </ul>
+
+            <b>Evaluation</b>
+            <ul>
+              <li>
+                The top most commonly used soil moisture products are SMAP and GLDAS.
+              </li>
+              <li>
+                Few papers directly evaluate GLDAS against SMAP. In a <a href="https://www.linkedin.com/pulse/comparison-smap-gldas-simulated-soil-moisture-datasets-kamal-das/">study</a> by IBM over Malaysia area, GLDAS performs marginally better than
+                SMAP. In <a href="https://www.researchgate.net/publication/320573576_Global-scale_assessment_and_combination_of_SMAP_with_ASCAT_active_and_AMSR2_passive_soil_moisture_products">another paper</a> evaluating SMAP, ASCAT and AMSR2 against
+                GLDAS, SMAP and GLDAS performed similarly in R-value (0.74 and 0.73), with GLDAS showing the lowest absolute bias at 0.03 and lowest ubRMSD values.
+              </li>
+              <li>
+                In a <a href="https://agupubs.onlinelibrary.wiley.com/doi/full/10.1002/jgrd.50301">study</a> in central Tibetan Plateau</a>, a cold region, GLDAS models generally produced lower RMSE and BIAS compared to AMSR-E algorithms. The article
+                also mentions GLDAS errors are high due and they systematically underestimate the moisture within the topsoil due to the absence of high amounts of soil organic carbon in the region.
+              </li>
+              <li>
+                In a <a href="https://www.mdpi.com/2072-4292/11/7/792/htm"> study</a> validating 5 passive satellites in Qinghai-Tibet Plateau and surrounding areas, SMAP had lowest uncertainty in comparison with in situ observations (large R and low
+                RMSE and bias) and regional measurements, and offers the highest coverage. It performed well on in situ measurements in areas with sparse vegetation. The study also tested the models against three algorithm inputs (physical surface temperature,
+                vegetation optical depth, and dielectric mixing model) and noted that retrieval algorithms and inputs were primary causes of error. Similarly, <a href="https://agupubs.onlinelibrary.wiley.com/doi/full/10.1002/2017JD026800">here</a> SMAP
+                had the lowest RMSE (0.039–0.063 m3 m−3) and bias (0.022–0.050 m3 m−3), and vegetation cover correction is also a major factor in the retrieval algorithm. Finally, in a study over the Tibetan Plateau, SMAP performs well in spatio and temporal
+                tests. It performed poorly in areas of complex topography where stations were sparse.
+              </li>
+              <li>In summary, we are indifferent to SMAP or GLDAS products, though recommend GLDAS as it has a longer history and there is still a dearth of studies validating SMAP against GLDAS.
+
+              </li>
+            </ul>
+
+            <b>Summary statistics</b>
+            <ul>
+              <li>Soil moisture monthly average (these are statistics of the average soil moisture on a monthly basis for each pixel) Average: 28.10 / 50 percentile: 29.62
+              </li>
+
+            </ul>
+
+            <b>Historical availability</b>
+            <ul>
+              <li>2000 onwards, we use 2016 2017 and 2018 data.
+              </li>
+            </ul>
+          </div>
+
+          <div class="humidity">
+            <b>Dataset</b>
+            <ul>
+              <li>
+                Units: kg/kg
+              </li>
+              <li>
+                Resolution: 25km, applied Gaussian smoothing to interpolate values and get 90m resolution
+              </li>
+            </ul>
+
+            <b>Introduction</b>
+            <ul>
+              <li>
+                Both GLDAS (NASA, Noah land surface model) and SMAP (NASA) are global high resolution datasets providing surface and subsurface soil moisture data. GLDAS is a satellite and ground observations based system. Specifically it measures the backscattering
+                of microwaves which interact with soil, wetter soil results in more backscattering. SMAP combines L-bands with C- and X-band microwaves.
+              </li>
+
+            </ul>
+
+            <b>Evaluation</b>
+            <ul>
+              <li>
+                The top most commonly used soil moisture products are SMAP and GLDAS.
+              </li>
+              <li>
+                Few papers directly evaluate GLDAS against SMAP. In a <a href="https://www.linkedin.com/pulse/comparison-smap-gldas-simulated-soil-moisture-datasets-kamal-das/">study</a> by IBM over Malaysia area, GLDAS performs marginally better than
+                SMAP. In <a href="https://www.researchgate.net/publication/320573576_Global-scale_assessment_and_combination_of_SMAP_with_ASCAT_active_and_AMSR2_passive_soil_moisture_products">another paper</a> evaluating SMAP, ASCAT and AMSR2 against
+                GLDAS, SMAP and GLDAS performed similarly in R-value (0.74 and 0.73), with GLDAS showing the lowest absolute bias at 0.03 and lowest ubRMSD values.
+              </li>
+              <li>
+                In a <a href="https://agupubs.onlinelibrary.wiley.com/doi/full/10.1002/jgrd.50301">study</a> in central Tibetan Plateau</a>, a cold region, GLDAS models generally produced lower RMSE and BIAS compared to AMSR-E algorithms. The article
+                also mentions GLDAS errors are high due and they systematically underestimate the moisture within the topsoil due to the absence of high amounts of soil organic carbon in the region.
+              </li>
+              <li>
+                In a <a href="https://www.mdpi.com/2072-4292/11/7/792/htm"> study</a> validating 5 passive satellites in Qinghai-Tibet Plateau and surrounding areas, SMAP had lowest uncertainty in comparison with in situ observations (large R and low
+                RMSE and bias) and regional measurements, and offers the highest coverage. It performed well on in situ measurements in areas with sparse vegetation. The study also tested the models against three algorithm inputs (physical surface temperature,
+                vegetation optical depth, and dielectric mixing model) and noted that retrieval algorithms and inputs were primary causes of error. Similarly, <a href="https://agupubs.onlinelibrary.wiley.com/doi/full/10.1002/2017JD026800">here</a> SMAP
+                had the lowest RMSE (0.039–0.063 m3 m−3) and bias (0.022–0.050 m3 m−3), and vegetation cover correction is also a major factor in the retrieval algorithm. Finally, in a study over the Tibetan Plateau, SMAP performs well in spatio and temporal
+                tests. It performed poorly in areas of complex topography where stations were sparse.
+              </li>
+              <li>In summary, we are indifferent to SMAP or GLDAS products, though recommend GLDAS as it has a longer history and there is still a dearth of studies validating SMAP against GLDAS.
+
+              </li>
+            </ul>
+
+            <b>Summary statistics</b>
+            <ul>
+              <li>
+                Specific humidity monthly average (these are statistics of the average specific humidity on a monthly basis for each pixel) Average: 0.01 / 50 percentile: 0.01
+              </li>
+            </ul>
+
+            <b>Historical availability</b>
+            <ul>
+              <li>2000 onwards, we use 2016 2017 and 2018 data.
+              </li>
+            </ul>
+          </div>
+
+
+          <div class="solar">
+            <b>Dataset</b>
+            <ul>
+              <li>
+                Units: kWh/m2
+              </li>
+              <li>
+                Resolution: 250m, applied Gaussian smoothing to interpolate values and get 90m resolution
+              </li>
+            </ul>
+
+            <b>Introduction</b>
+            <ul>
+              <li>
+                Solargis, funded by The World Bank Group, provides Global Horizontal Irradiation (GHI) is the total irradiance from the sun on a horizontal surface. GHI is the sum of Direct Normal Irradiation (DNI) and diffuse horizontal irradiance (DHI). Both DNI and
+                DHI are measured on a horizontal surface on Earth. DNI is defined as beam radiation (radiation coming from the sun disk) at that horizontal surface. DHI is radiation at that horizontal surface due to scattering effects from atmospheric
+                components (eg particles, droplets, etc.). </li>
+
+              <li>
+                GHI is constructed from the Solargis solar radiation model (which takes in data from geostationary satellites, meteorological models to calculate clear-sky irradiance, cloud index to get all-sky irradiance) and air temperature model (takes in meteorological
+                parameters such as wind speed, direction, relative humidity, etc.)
+              </li>
+
+            </ul>
+
+            <b>Evaluation</b>
+            <ul>
+              <li>
+                Solargis evaluated their data in different geographies and situations and <a href="https://globalsolaratlas.info/support/accuracy">concluded</a> “in most of the cases the expected deviation of the yearly values is expected in the range
+                of ±4% to ±8% for GHI, and in the range of ±8% to ±15% for DNI. A higher deviation is expected in geographically complex conditions, and in regions which are not sufficiently covered by high quality meteorological measurements.”
+              </li>
+
+            </ul>
+
+            <b>Summary statistics</b>
+            <ul>
+
+              <li>
+                Average: 1483.73 / Standard deviation: 2189.29 / Min: -32768.00 / 25 percentile: 1464.00 / 50 percentile: 1644.00 / 75 percentile: 1794.00 / Max: 1980.00
+              </li>
+            </ul>
+
+            <b>Historical availability</b>
+            <ul>
+              <li>2007-2015.
+              </li>
+            </ul>
+          </div>
+
+          <div class="flood">
+            <b>Dataset</b>
+            <ul>
+              <li>
+                Units: probability
+              </li>
+              <li>
+                Resolution: 90m
+              </li>
+            </ul>
+
+
+            <b>Introduction</b>
+            <ul>
+              <li>
+                We take waterbody, elevation and slope data to create a custom flood risk model.
+              </li>
+              <li>
+                For each tile within 1km from the river, we calculate:
+                <ul>
+                  <li>risk given the distance from the river, modeled as Normal(0, 500m)
+                  </li>
+                  <li>risk given the difference in elevation from river, modeled as Normal(0, 100m)
+                  </li>
+                  <li>risk given the slope from river, modeled as Normal(0, 20 degrees)
+                  </li>
+                </ul>
+              </li>
+              <li>
+                We then multiply the above risks to get the inundation risk.
+              </li>
+
+            </ul>
+
+            <b>Evaluation</b>
+            <ul>
+              <li>
+                None </li>
+            </ul>
+
+            <b>Summary statistics</b>
+            <ul>
+
+              <li>
+                Average: 0.03 / Standard deviation: 0.14 / Min: 0.00 / 25 percentile: 0.00 / 50 percentile: 0.00 / 75 percentile: 0.00 / Max: 1.00
+              </li>
+            </ul>
+          </div>
+
+          <div class="house">
+
+            <b>Dataset</b>
+            <ul>
+              <li>
+                Units: house or no house
+              </li>
+              <li>
+                Resolution: 90m
+              </li>
+            </ul>
+
+
+            <b>Introduction</b>
+            <ul>
+              <li>
+                This model has been used by Enveritas for rural areas in 12 countries and has 90% precision and recall.
+              </li>
+            </ul>
+
+            <b>Evaluation</b>
+            <ul>
+              <li>
+                None </li>
+            </ul>
+
+            <b>Summary statistics</b>
+            <ul>
+
+              <li>
+                1% of land mass is houses.
+              </li>
+            </ul>
+          </div>
+
+          <div class="roads">
+            <b>Dataset</b>
+            <ul>
+              <li>
+                Units: road or no road
+              </li>
+              <li>
+                Resolution: 90m
+              </li>
+            </ul>
+
+            <b>Introduction</b>
+            <ul>
+              <li>
+                We hand-drew major roads.
+              </li>
+            </ul>
+
+            <b>Evaluation</b>
+            <ul>
+              <li>
+                None </li>
+            </ul>
+
+            <b>Summary statistics</b>
+            <ul>
+              <li>
+                Less than 1% of land mass is road.
+              </li>
+            </ul>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id='wrapper'>
+    <div id='sidebar-wrapper'>
+      <div class="header"><a href="https://www.growasia.org/"><img src="assets/logo.png" class="img-responsive" alt="Grow Asia"></a></div>
+      <div id='sidebar'>
+        <div class="card">
+          <div class="card-header">
+            Toggle the datasets below to see areas that match your filter. You can also download the full dataset <a href="">here.</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div id='map'></div>
+  <!-- <div id='legend'>
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">Population</h5>
+        <div class="card-text">
+          <div class="legend-color legend-color-red"></div> 10,000,000
+          <p></p>
+          <div class="legend-color legend-color-green"></div>5,000,000
+          <div class="legend-color legend-color-orange"></div>5,000,000
+          <div class="legend-color legend-color-yellow"></div>5,000,000
+          <div class="legend-color legend-color-blue"></div>5,000,000
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <script>
+    // data
+    var DATA = [{
+        title: 'Elevation',
+        id: '0',
+        min: 0,
+        max: 4500,
+        step: 5,
+        multiplier: 1,
+        unit: 'm',
+        source: 'elevation'
+      },
+      {
+        title: 'Slope',
+        id: '1',
+        min: 0,
+        max: 90,
+        step: 1,
+        multiplier: 1,
+        unit: '°',
+        source: 'slope'
+
+      },
+      {
+        title: 'Monthly Temperature',
+        id: '4',
+        min: 10,
+        max: 40,
+        step: 0.1,
+        multiplier: 10,
+        unit: '°C',
+        source: 'temperature'
+      },
+      {
+        title: 'Annual Rainfall',
+        id: '15',
+        min: 1000,
+        max: 4000,
+        step: 10,
+        multiplier: 1,
+        unit: 'mm',
+        source: 'rainfall'
+      },
+      {
+        title: 'Soil Moisture',
+        id: '7',
+        min: 10,
+        max: 40,
+        step: 1,
+        multiplier: 10,
+        unit: 'mm',
+        source: 'soil'
+      },
+      {
+        title: 'Specific Humidity',
+        id: '10',
+        min: 0.011,
+        max: 0.0145,
+        step: 0.0001,
+        multiplier: 10000,
+        unit: 'kg/kg',
+        source: 'humidity'
+      }
+    ]
+
+    // globals
+    var map_ids = [];
+    var sliders = [];
+
+    /***************************************************************
+     * Get extra monthly data for download
+     ****************************************************************/
+    // handle data downloads
+    let monthly_data_promise = new Promise((resolve, reject) => $.ajax({
+      url: "data/png_monthly.csv",
+      async: false,
+      success: function(csvd) {
+        resolve($.csv.toArrays(csvd))
+      },
+      dataType: "text",
+      error: function(error) {
+        reject(error)
+      },
+    }));
+
+    /***************************************************************
+     * Show introduction modal
+     ****************************************************************/
+    $('#welcomeModal').modal('show');
+
+    /***************************************************************
+     * Initialize maps
+     ****************************************************************/
+    mapboxgl.accessToken = 'pk.eyJ1IjoiZ3JhY2VnZWUiLCJhIjoiY2pnNG5lbzNrMWJpbDMzeGZ0NThnMWxuMSJ9.HqDnzBE3Ra2QiKu87Eh4pw';
+    var grid_style = {
+      'fill-color': '#749062',
+      'fill-opacity': 0.5,
+      'fill-antialias': false
+    };
+    var map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v11', //light-v10 satellite-v9
+      center: [146.5, -6.75],
+      minZoom: 7,
+      zoom: 9
+    });
+    map.on('load', function() {
+      map_ids.push('original')
+      map.addSource('original', {
+        'type': 'vector',
+        'url': `mapbox://gracegee.detailed`
+      });
+      map.addLayer({
+        'id': 'original',
+        'source': 'original',
+        'source-layer': 'original',
+        'minzoom': 12,
+        'type': 'fill',
+        'paint': grid_style
+      }, 'waterway-label');
+
+      for (var i = 0; i < 11; i++) {
+        map_ids.push(`part_${i}`);
+        map.addSource(`part_${i}`, {
+          'type': 'vector',
+          'url': `mapbox://gracegee.part_${i}`
+        });
+        map.addLayer({
+          'id': `part_${i}`,
+          'source': `part_${i}`,
+          'source-layer': `part_${i}`,
+          'maxzoom': 13,
+          'type': 'fill',
+          'paint': grid_style
+        }, 'waterway-label');
+      }
+    });
+
+    /***************************************************************
+     * Add sliders
+     ****************************************************************/
+    DATA.forEach(function(d) {
+      let $el = $(
+        `<div class="card mb-0"><div class="card-body pb-0">
+          <a class="card-title">${d.title} <i class="fas fa-question-circle"></i></a></div>
+        <div class="card-header">
+          <input type="text" class="span2" data-slider-min="${d.min}" data-slider-max="${d.max}" data-slider-step="${d.step}" data-slider-value="[${d.min},${d.max}]" />
+        </div></div>`
+      );
+      $('#sidebar').append($el);
+      // add slider
+      let slider = $($el.find('input')).slider({
+        formatter: function(values) {
+          return values[0] + '-' + values[1] + d.unit;
+        }
+      }).data('id', d.id).data('multiplier', d.multiplier);;
+      sliders.push(slider);
+      // add info modal
+      $($el.find('.fa-question-circle')).click(() => {
+        let $modal = $('#infoModal');
+        $($modal.find('.modal-title')).children().hide();
+        $($modal.find('.modal-body')).children().hide();
+        $($modal.find(`.${d.source}`)).show();
+        $('#infoModal').modal('show');
+      });
+    });
+
+    // configure sliders to change map
+    sliders.forEach(function(slider) {
+      slider.on('slideStop', function(ev) {
+        // aggregate filters for variables
+        let filters = ['all'];
+        sliders.forEach(function(s) {
+          let range = s.slider('getValue');
+          filters.push(['>=', s.data('id'), range[0] * s.data('multiplier')]);
+          filters.push(['<=', s.data('id'), range[1] * s.data('multiplier')]);
+        });
+        // perform filter on each layer of the map
+        map_ids.forEach(function(id) {
+          map.setFilter(id, filters)
+        });
+      });
+    });
+
+    /***************************************************************
+     * Handle download
+     ****************************************************************/
+    map.on('click', function(e) {
+      let features = map.queryRenderedFeatures(e.point, {
+        layers: map_ids
+      });
+      if (features.length > 0) {
+        let prop = features[0]['properties'];
+        monthly_data_promise.then(rows => {
+          let header = ['latitude', 'longitude'].concat(_.keys(prop).concat(rows[0].slice(2)));
+          let nearest = _.min(rows.slice(1), row => Math.pow(e.lngLat.lat - row[1], 2) + Math.pow(e.lngLat.lng - row[0], 2));
+          let content = [e.lngLat.lat, e.lngLat.lng].concat(_.values(prop).concat(nearest.slice(2)));
+
+          let csv = "data:text/csv;charset=utf-8," + header.join(',') + '\r\n' + content.join(',');
+          var encodedUri = encodeURI(csv);
+          var link = document.createElement("a");
+          link.setAttribute("href", encodedUri);
+          link.setAttribute("download", `${e.lngLat.lat},${e.lngLat.lng}.csv`);
+          document.body.appendChild(link); // Required for FF
+          link.click();
+
+        })
+      }
+    });
+  </script>
+
+</body>
+
+</html>

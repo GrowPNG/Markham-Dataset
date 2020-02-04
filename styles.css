@@ -12,6 +12,10 @@ body {
   height: 100%;
 }
 
+a {
+  color: #336d46;
+}
+
 .tooltip.in {
   filter: alpha(opacity=90);
   opacity: .9;
@@ -123,16 +127,12 @@ body {
   overflow-y: scroll;
   height:calc(100vh - 100px);
 }
+
 #sidebar-wrapper {
   width: 250px;
-
-
-
 }
 
 .header {
-  /* position: absolute; */
-  /* top: 0px; */
   padding-top: 20px;
   padding-left: 96px;
   padding-bottom: 20px;
@@ -186,4 +186,8 @@ body {
 #sidebar-wrapper .card-header {
   background-color: rgb(255,255,255);
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+.btn-success {
+  background-color: #336d46;
+    border-color: #336d46;
 }

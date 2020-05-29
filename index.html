@@ -77,10 +77,10 @@
             </div>
 
             <div class="rainfall">
-              Historical rainfall (CHIRPS)
+              Historical Rainfall (CHIRPS)
             </div>
             <div class="soil">
-              Soil moisture (GLDAS)
+              Soil Moisture (GLDAS)
             </div>
             <div class="humidity">
               Humidity (GLDAS)
@@ -89,14 +89,42 @@
               Radiation (Solargis)
             </div>
             <div class="flood">
-              Enveritas custom inundation risk
+              Enveritas Custom Inundation Risk
             </div>
             <div class="house">
-              Enveritas custom house
+              Enveritas Custom House
             </div>
             <div class="roads">
-              Enveritas custom roads
+              Roads
             </div>
+            <div class="ph">
+              Soil pH
+            </div>
+            <div class="carbon">
+              Soil Organic Carbon Content
+            </div>
+            <div class="sand">
+              Soil Sand Percentage
+            </div>
+            <div class="silt">
+              Soil Silt Percentage
+            </div>
+            <div class="clay">
+              Soil Clay Percentage
+            </div>
+            <div class="phosphorus">
+              Soil Available Phosphorus
+            </div>
+            <div class="calcium">
+              Soil Exchangeable Calcium
+            </div>
+            <div class="magnesium">
+              Soil Exchangeable Magnesium
+            </div>
+            <div class="potassium">
+              Soil Exchangeable Potassium
+            </div>
+
           </h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -599,10 +627,11 @@
             <b>Introduction</b>
             <ul>
               <li>
-                HDX provides population and shapefiles at level 3 as updated in mid-2019. For each level 3 area, we calculate for each tile in the level 3 the population of the level 3 area divided by number of house tiles in that level 3. If the level 3 area is not entirely contained in our area, we calculate population times the percentage of level 3 area contained in our area of interest.
+                HDX provides population and shapefiles at level 3 as updated in mid-2019. For each level 3 area, we calculate for each tile in the level 3 the population of the level 3 area divided by number of house tiles in that level 3. If the level 3 area is not
+                entirely contained in our area, we calculate population times the percentage of level 3 area contained in our area of interest.
               </li>
               <li>
-                <a href = https://data.humdata.org/dataset/papua-new-guinea-administrative-level-0-1-2-and-3-population-statistics>Data Source</a>
+                <a href=h ttps://data.humdata.org/dataset/papua-new-guinea-administrative-level-0-1-2-and-3-population-statistics>Data Source</a>
               </li>
             </ul>
 
@@ -638,7 +667,7 @@
                 Road data was downloaded from OSM in 2014.
               </li>
               <li>
-                <a href = https://data.humdata.org/dataset/papua-new-guinea-roads >Data Source</a>
+                <a href=https://data.humdata.org/dataset/papua-new-guinea-roads>https://data.humdata.org/dataset/papua-new-guinea-roads</a>
               </li>
             </ul>
 
@@ -656,6 +685,353 @@
             </ul>
           </div>
 
+          <div class="ph">
+
+            <b>Dataset</b>
+            <ul>
+              <li>
+                Units: pH
+              </li>
+              <li>
+                Resolution: 30m
+              </li>
+            </ul>
+
+
+            <b>Introduction</b>
+            <ul>
+              <li>
+                Soil pH indicates the degree of acidity, which is related to crop production potential.
+              </li>
+            </ul>
+
+            <b>Sampling Method</b>
+            <ul>
+              <li>
+                Samples were taken at a depth of 0-15cm. Soil pH was measured after shaking a suspension of soil and deionized water at a ratio of 1:5 (weight/weight basis) at 25°C for 1 hour. The pH measurements were taken in a calibrated pH meter
+                (Mettler Toledo Seven Multi pH meter).
+              </li>
+              <li>
+                We interpolate pH by weighing the pH of soil samples taken within 5km according to their inverse distances.
+              </li>
+            </ul>
+
+            <b>Summary statistics</b>
+            <ul>
+              <li>
+                Average: 7.45 / Standard deviation: 0.73 / Min: 6.15 / 25 percentile: 6.79 / 50 percentile: 7.56 / 75 percentile: 8.01 / Max: 8.97
+              </li>
+            </ul>
+          </div>
+
+          <div class="carbon">
+
+            <b>Dataset</b>
+            <ul>
+              <li>
+                Units: %
+              </li>
+              <li>
+                Resolution: 30m
+              </li>
+            </ul>
+
+
+            <b>Introduction</b>
+            <ul>
+              <li>
+                Soil organic Carbon content is an indicator of soil fertility, biological activity, ability to cycle carbon, and potential availability of nitrogen and sulfur.
+              </li>
+            </ul>
+
+            <b>Sampling Method</b>
+            <ul>
+              <li>
+                Samples were taken at a depth of 0-15cm. A finely-milled (< 0.2 mm) air-dry sample was analyzed for organic carbon content by the Walkley-Black’s wet oxidation method in a dichromate-concentrated sulphuric acid mixture. The reaction
+                  mixture was titrated against standard ferrous ammonium sulfate solution in the presence of a suitable redox indicator and concentrated phosphoric acid. </li> <li>
+                  We interpolate organic Carbon content by weighing the pH of soil samples taken within 5km according to their inverse distances.
+              </li>
+            </ul>
+
+            <b>Summary statistics</b>
+            <ul>
+              <li>
+                Average: 2.73 / Standard deviation: 1.78 / Min: 0.54 / 25 percentile: 1.35 / 50 percentile: 2.28 / 75 percentile: 3.42 / Max: 8.47
+              </li>
+            </ul>
+          </div>
+
+          <div class="clay">
+
+            <b>Dataset</b>
+            <ul>
+              <li>
+                Units: %
+              </li>
+              <li>
+                Resolution: 30m
+              </li>
+            </ul>
+
+            <b>Introduction</b>
+            <ul>
+              <li>
+                Particle size analysis determines texture of the soil. Soil texture influences a range of physical properties such as soil bulk density, moisture retention, aggregate stability, infiltration and permeability. Soil texture also
+                influences cation exchange capacity and nutrient retention characteristics.
+              </li>
+            </ul>
+
+            <b>Sampling Method</b>
+            <ul>
+              <li>
+                Samples were taken at a depth of 0-15cm. Particle size analysis was carried out with the Bouyoucos hydrometer method. A weighed portion of a previously moisture-determined soil was treated with hydrogen peroxide to decompose organic
+                matter and then placed in a water bath to remove excess peroxide. Sodium-hexa-meta-phosphate solution was added and the mixture was stirred and made up to 1000 mL in a cylinder. A hydrometer was immersed in the suspension and density
+                measurements were taken at certain time intervals. The time required to settle particles of a given size can be calculated using Stoke’s equation.
+              </li>
+              <li>
+                Soil particles were separated into three size categories.
+                <ul>
+                  <li>Sand: > 0.02 mm</li>
+                  <li>Silt: 0.002-0.02 mm</li>
+                  <li>Clay: < 0.002 mm</li> </ul> </li>
+                  <li>
+                      We interpolate clay percentage by weighing the clay percentage of soil samples taken within 5km according to their inverse distances.
+                  </li>
+                </ul>
+
+                <b>Summary statistics</b>
+                <ul>
+                  <li>
+                   Average: 12.10 / Standard deviation: 8.56 / Min: 0.80 / 25 percentile: 4.00 / 50 percentile: 11.90 / 75 percentile: 17.08 / Max: 34.00
+                  </li>
+                </ul>
+          </div>
+          <div class="silt">
+
+            <b>Dataset</b>
+            <ul>
+              <li>
+                Units: %
+              </li>
+              <li>
+                Resolution: 30m
+              </li>
+            </ul>
+
+            <b>Introduction</b>
+            <ul>
+              <li>
+                Particle size analysis determines texture of the soil. Soil texture influences a range of physical properties such as soil bulk density, moisture retention, aggregate stability, infiltration and permeability. Soil texture also
+                influences cation exchange capacity and nutrient retention characteristics.
+              </li>
+            </ul>
+
+            <b>Sampling Method</b>
+            <ul>
+              <li>
+                Samples were taken at a depth of 0-15cm. Particle size analysis was carried out with the Bouyoucos hydrometer method. A weighed portion of a previously moisture-determined soil was treated with hydrogen peroxide to decompose organic
+                matter and then placed in a water bath to remove excess peroxide. Sodium-hexa-meta-phosphate solution was added and the mixture was stirred and made up to 1000 mL in a cylinder. A hydrometer was immersed in the suspension and density
+                measurements were taken at certain time intervals. The time required to settle particles of a given size can be calculated using Stoke’s equation.
+              </li>
+              <li>
+                Soil particles were separated into three size categories.
+                <ul>
+                  <li>Sand: > 0.02 mm</li>
+                  <li>Silt: 0.002-0.02 mm</li>
+                  <li>Clay: < 0.002 mm</li> </ul> </li>
+                  <li>
+                      We interpolate silt percentage by weighing the silt percentage of soil samples taken within 5km according to their inverse distances.
+                  </li>
+                </ul>
+
+                <b>Summary statistics</b>
+                <ul>
+                  <li>
+                    Average: 29.26 / Standard deviation: 12.22 / Min: 4.00 / 25 percentile: 20.10 / 50 percentile: 27.70 / 75 percentile: 37.55 / Max: 54.40
+                  </li>
+                </ul>
+          </div>
+          <div class="sand">
+
+            <b>Dataset</b>
+            <ul>
+              <li>
+                Units: %
+              </li>
+              <li>
+                Resolution: 30m
+              </li>
+            </ul>
+
+            <b>Introduction</b>
+            <ul>
+              <li>
+                Particle size analysis determines texture of the soil. Soil texture influences a range of physical properties such as soil bulk density, moisture retention, aggregate stability, infiltration and permeability. Soil texture also
+                influences cation exchange capacity and nutrient retention characteristics.
+              </li>
+            </ul>
+
+            <b>Sampling Method</b>
+            <ul>
+              <li>
+                Samples were taken at a depth of 0-15cm. Particle size analysis was carried out with the Bouyoucos hydrometer method. A weighed portion of a previously moisture-determined soil was treated with hydrogen peroxide to decompose organic
+                matter and then placed in a water bath to remove excess peroxide. Sodium-hexa-meta-phosphate solution was added and the mixture was stirred and made up to 1000 mL in a cylinder. A hydrometer was immersed in the suspension and density
+                measurements were taken at certain time intervals. The time required to settle particles of a given size can be calculated using Stoke’s equation.
+              </li>
+              <li>
+                Soil particles were separated into three size categories.
+                <ul>
+                  <li>Sand: > 0.02 mm</li>
+                  <li>Silt: 0.002-0.02 mm</li>
+                  <li>Clay: < 0.002 mm</li> </ul> </li>
+                  <li>
+                      We interpolate sand percentage by weighing the sand percentage of soil samples taken within 5km according to their inverse distances.
+                  </li>
+                </ul>
+
+                <b>Summary statistics</b>
+                <ul>
+                  <li>
+                    Average: 58.65 / Standard deviation: 17.97 / Min: 14.80 / 25 percentile: 46.98 / 50 percentile: 58.90 / 75 percentile: 72.80 / Max: 94.80
+                  </li>
+                </ul>
+          </div>
+          <div class="phosphorus">
+
+            <b>Dataset</b>
+            <ul>
+              <li>
+                Units: mg/kg
+              </li>
+              <li>
+                Resolution: 30m
+              </li>
+            </ul>
+
+            <b>Introduction</b>
+            <ul>
+              <li>
+                Plant-available Phosphorus is an essential crop nutrient for oil seeds, legumes and forages. The Olgen test used here is suitable for measuring readily available forms of soil Phosphorus in slightly alkaline soils.  </li>
+            </ul>
+
+            <b>Sampling Method</b>
+            <ul>
+              <li>
+                Samples were taken at a depth of 0-15cm. Extractable Phosphorus content was determined according to the method described by Olsen. A portion of air-dried soil sample was extracted using a freshly prepared 0.5 M sodium bicarbonate buffered at a pH of 8.5.  The soil extractant ratio was 1:20. Phosphorous content in the extract was measured by a molybdenum-blue color method at a wavelength of 882 nm in a spectrophotometer (SHIMADZU UV-1800).
+              </li>
+              <li>
+                  We interpolate available Phosphorus by weighing the available Phosphorus of soil samples taken within 5km according to their inverse distances.
+              </li>
+            </ul>
+                <b>Summary statistics</b>
+                <ul>
+                  <li>
+                    Average: 10.33 / Standard deviation: 9.51 / Min: 0.08 / 25 percentile: 3.44 / 50 percentile: 6.50 / 75 percentile: 15.57 / Max: 42.20
+                  </li>
+                </ul>
+          </div>
+
+          <div class="calcium">
+
+            <b>Dataset</b>
+            <ul>
+              <li>
+                Units: cmol Ca++/kg
+              </li>
+              <li>
+                Resolution: 30m
+              </li>
+            </ul>
+
+            <b>Introduction</b>
+            <ul>
+              <li>
+                Calcium is generally the predominant basic cation in the soil. Soil base saturation is a prerequisite for maintaining fertility and productivity. Gradual loss of calcium may turn soil acidic leading to serious consequences to crops and animals. An ideal soil should have ca. 65% calcium as exchangeable cation. </li>
+            </ul>
+
+            <b>Sampling Method</b>
+            <ul>
+              <li>
+                Samples were taken at a depth of 0-15cm. The soil and 1 M NH4Cl extractant solutions at a ratio of 1:20 were equilibrated at pH 7.0 for 1 hour with mechanical shaking. The suspensions were clarified by filtration and analyzed for exchangeable calcium content by Inductively Coupled Plasma-Optical Emission Spectrophotometer (Varian 725-ES). The method does not require pre-treatment for the removal of chlorides and is suitable for all soil types and provides a good estimate of exchangeable calcium in acidic and neutral, non-saline, non-calcareous and non-gypsiferous soils.   </li>
+              <li>
+                  We interpolate exchangeable Calcium by weighing the exchangeable Calcium of soil samples taken within 5km according to their inverse distances.
+              </li>
+            </ul>
+                <b>Summary statistics</b>
+                <ul>
+                  <li>
+                    Average: 32.71 / Standard deviation: 11.35 / Min: 5.40 / 25 percentile: 25.24 / 50 percentile: 33.04 / 75 percentile: 41.32 / Max: 58.95
+                  </li>
+                </ul>
+          </div>
+
+          <div class="magnesium">
+
+            <b>Dataset</b>
+            <ul>
+              <li>
+                Units: cmol/kg
+              </li>
+              <li>
+                Resolution: 30m
+              </li>
+            </ul>
+
+            <b>Introduction</b>
+            <ul>
+              <li>
+                Magnesium plays an important role in plant nutrition and physiology. The ratio of calcium to magnesium is also critical. An ideal soil should have ca. 10% magnesium as exchangeable cation. </li>
+            </ul>
+
+            <b>Sampling Method</b>
+            <ul>
+              <li>
+                Samples were taken at a depth of 0-15cm. The soil and 1 M NH4Cl extractant solutions at a ratio of 1:20 were equilibrated with at pH 7.0 for 1 hour with mechanical shaking. The suspensions were clarified by filtration and analyzed for exchangeable magnesium content by Inductively Coupled Plasma-Optical Emission Spectrophotometer (Varian 725-ES). The method does not require pre-treatment for the removal of chlorides and is suitable for all soil types and provides a good estimate of exchangeable magnesium in acidic and neutral, non-saline, non-calcareous and non-gypsiferous soils. </li>
+              <li>
+                  We interpolate exchangeable Magnesium by weighing the exchangeable Magnesium of soil samples taken within 5km according to their inverse distances.
+              </li>
+            </ul>
+                <b>Summary statistics</b>
+                <ul>
+                  <li>
+                    Average: 5.89 / Standard deviation: 3.58 / Min: 1.47 / 25 percentile: 3.40 / 50 percentile: 5.38 / 75 percentile: 7.33 / Max: 18.06
+                  </li>
+                </ul>
+          </div>
+          <div class="potassium">
+
+            <b>Dataset</b>
+            <ul>
+              <li>
+                Units: cmol/kg
+              </li>
+              <li>
+                Resolution: 30m
+              </li>
+            </ul>
+
+            <b>Introduction</b>
+            <ul>
+              <li>
+                 Crop requirement of potassium is quite high and hence potassium plays significant role as a fertilizer nutrient. An ideal soil should have ca. 5% potassium as exchangeable cation. </li>
+            </ul>
+
+            <b>Sampling Method</b>
+            <ul>
+              <li>
+                Samples were taken at a depth of 0-15cm.
+                •	The soil and 1 M NH4Cl extractant solutions at a ratio of 1:20 were equilibrated with at pH 7.0 for 1 h with mechanical shaking. The suspensions were clarified by filtration and analyzed for exchangeable potassium content by Inductively Coupled Plasma-Optical Emission Spectrophotometer (Varian 725-ES). The method does not require pre-treatment for the removal of chlorides and is suitable for all soil types and provides a good estimate of exchangeable potassium in acidic and neutral, non-saline, non-calcareous and non-gypsiferous soils. </li>
+              <li>
+                  We interpolate exchangeable Potassium by weighing the exchangeable Potassium of soil samples taken within 5km according to their inverse distances.
+              </li>
+            </ul>
+                <b>Summary statistics</b>
+                <ul>
+                  <li>
+                    Average: 2.24 / Standard deviation: 1.69 / Min: 0.20 / 25 percentile: 0.98 / 50 percentile: 1.97 / 75 percentile: 2.91 / Max: 9.91
+                  </li>
+                </ul>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -670,7 +1046,7 @@
       <div id='sidebar'>
         <div class="card">
           <div class="card-header">
-            Toggle the datasets below to see areas that match your filter. You can also download the full dataset <a target="_blank" href="https://drive.google.com/file/d/1zs9YOQGJ-6EAPsZDFM1qzftsqEjzNXVv/view?usp=sharing">here.</a>
+            Toggle the datasets below to see areas that match your filter. You can also download the full dataset <a target="_blank" href="https://drive.google.com/file/d/1e_eL7t4kLlon6Z4k5jGDjDZsoBAyoTkA/view?usp=sharing">here.</a>
           </div>
         </div>
       </div>
@@ -743,17 +1119,6 @@
         source: 'rainfall'
       },
       {
-        title: 'Soil Moisture',
-        id: '7',
-        type: 'slider',
-        min: 10,
-        max: 40,
-        step: 1,
-        multiplier: 10,
-        unit: 'mm',
-        source: 'soil'
-      },
-      {
         title: 'Specific Humidity',
         id: '10',
         type: 'slider',
@@ -774,6 +1139,122 @@
         multiplier: 1,
         unit: 'people/km2',
         source: 'population'
+      },
+      {
+        title: 'Soil Moisture',
+        id: '7',
+        type: 'slider',
+        min: 10,
+        max: 40,
+        step: 1,
+        multiplier: 10,
+        unit: 'mm',
+        source: 'soil'
+      },
+      {
+        title: 'Soil pH',
+        id: '21',
+        type: 'slider',
+        min: 0,
+        max: 8.97,
+        step: .01,
+        multiplier: 1,
+        unit: 'pH',
+        source: 'ph'
+      },
+      {
+        title: 'Soil Organic Carbon',
+        id: '22',
+        type: 'slider',
+        min: 0,
+        max: 8.47,
+        step: .01,
+        multiplier: 1,
+        unit: '%',
+        source: 'carbon'
+      },
+      {
+        title: 'Soil Sand Percentage',
+        id: '25',
+        type: 'slider',
+        min: 0,
+        max: 95,
+        step: .1,
+        multiplier: 1,
+        unit: '%',
+        source: 'sand'
+      },
+      {
+        title: 'Soil Silt Percentage',
+        id: '24',
+        type: 'slider',
+        min: 0,
+        max: 55,
+        step: .1,
+        multiplier: 1,
+        unit: '%',
+        source: 'silt'
+      },
+      {
+        title: 'Soil Clay Percentage',
+        id: '23',
+        type: 'slider',
+        min: 0,
+        max: 34,
+        step: .1,
+        multiplier: 1,
+        unit: '%',
+        source: 'clay'
+      },
+      {
+        title: 'Soil Available Phosphorus',
+        id: '26',
+        type: 'slider',
+        min: 0,
+        max: 43,
+        step: .1,
+        multiplier: 1,
+        unit: 'mgP/kg',
+        source: 'phosphorus'
+      },
+      {
+        title: 'Soil Exchangeable Ca',
+        id: '27',
+        type: 'slider',
+        min: 0,
+        max: 59,
+        step: .1,
+        multiplier: 1,
+        unit: 'cmol/kg',
+        source: 'calcium'
+      },
+      {
+        title: 'Soil Exchangeable Mg',
+        id: '28',
+        type: 'slider',
+        min: 0,
+        max: 19,
+        step: .1,
+        multiplier: 1,
+        unit: 'cmol/kg',
+        source: 'magnesium'
+      },
+      {
+        title: 'Soil Exchangeable K',
+        id: '29',
+        type: 'slider',
+        min: 0,
+        max: 10,
+        step: .01,
+        multiplier: 1,
+        unit: 'cmol/kg',
+        source: 'potassium'
+      },
+      {
+        title: 'Soil Sample Location',
+        id: '30',
+        type: 'toggle',
+        source: 'soil_sample'
       },
       {
         title: 'Houses',
@@ -815,7 +1296,17 @@
       '17': 'house (0 or 1)',
       '18': 'inundation risk (0 to 1)',
       '19': 'roads (0 or 1)',
-      '20': 'population (persons per km2)'
+      '20': 'population (persons per km2)',
+      '21': 'soil ph',
+      '22': 'soil carbon (%)',
+      '23': 'soil clay (%)',
+      '24': 'soil silt (%)',
+      '25': 'soil sand (%)',
+      '26': 'soil available P (mgP/kg)',
+      '27': 'soil calcium (cmol/kg)',
+      '28': 'soil magnesium (cmol/kg)',
+      '29': 'soil potassium (cmol/kg)',
+      '30': 'soil sample location (0 or 1)'
     };
     var COLUMN_MULTIPLIERS = {
       '0': 1,
@@ -838,7 +1329,17 @@
       '17': 1,
       '18': 100,
       '19': 1,
-      '20': 1
+      '20': 1,
+      '21': 1,
+      '22': 1,
+      '23': 1,
+      '24': 1,
+      '25': 1,
+      '26': 1,
+      '27': 1,
+      '28': 1,
+      '29': 1,
+      '30': 1
     };
 
     // globals
@@ -887,7 +1388,7 @@
       map_ids.push('original')
       map.addSource('original', {
         'type': 'vector',
-        'url': `mapbox://gracegee.papua_new_guinea_`
+        'url': `mapbox://gracegee.png_detailed`
       });
       map.addLayer({
         'id': 'original',
@@ -902,12 +1403,12 @@
         map_ids.push(`part_${i}`);
         map.addSource(`part_${i}`, {
           'type': 'vector',
-          'url': `mapbox://gracegee.part_${i}`
+          'url': `mapbox://gracegee.png_part_${i}`
         });
         map.addLayer({
           'id': `part_${i}`,
           'source': `part_${i}`,
-          'source-layer': `papua_new_guinea__part_${i}`,
+          'source-layer': `png_part_${i}`,
           'maxzoom': 12,
           'type': 'fill',
           'paint': grid_style
@@ -960,11 +1461,12 @@
       let filters = ['all'];
       sliders.forEach(function(s) {
         let range = s.slider('getValue');
-        filters.push(['>=', s.data('id'), range[0] * s.data('multiplier')]);
+        let slider_has_change = range[0] > s.data('sliderMin') || range[1] < s.data('sliderMax');
+        filters.push(['>=', s.data('id'), range[0] * s.data('multiplier') + (slider_has_change ? .000001 : 0)]);
         filters.push(['<=', s.data('id'), range[1] * s.data('multiplier')]);
       });
       toggles.forEach(function(t) {
-        filters.push(['>=', t.data('id'), $(t).prop('checked') ? 1 : 0]);
+        !$(t).prop('checked') || filters.push(['>=', t.data('id'), $(t).prop('checked') ? 1 : 0]);
       })
       // perform filter on each layer of the map
       map_ids.forEach(function(id) {
@@ -980,6 +1482,7 @@
       toggle.change(filter_map);
     });
 
+
     /***************************************************************
      * Handle download
      ****************************************************************/
@@ -987,6 +1490,7 @@
       let features = map.queryRenderedFeatures(e.point, {
         layers: map_ids
       });
+
       if (features.length > 0) {
         let prop = features[0]['properties'];
         monthly_data_promise.then(rows => {
